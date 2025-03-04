@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
-
-namespace BidMatch.Domain.Users.Entities;
+using System;
+using System.Collections.Generic;
+using BidMatch.Domain.Users.Entities;
 
 public sealed class User : IdentityUser<Guid>
 {
-    public string IdentityId { get; private set; }
-
+    public string IdentityId { get; private set; } = default!;
     public string? FirstName { get; private set; }
-
     public string? LastName { get; private set; }
-
     public ICollection<UserRole> UserRoles { get; private set; } = new List<UserRole>();
 
-    private User() { }
+    public User() : base()
+    {
+        Id = Guid.CreateVersion7();
+    }
 
     private User(string username)
     {
@@ -22,8 +23,7 @@ public sealed class User : IdentityUser<Guid>
 
     public static User Create(string username)
     {
-        var user = new User(username);
-        return user;
+        return new User(username);
     }
 
     public void SetIdentityId(string identityId)
@@ -31,4 +31,3 @@ public sealed class User : IdentityUser<Guid>
         IdentityId = identityId;
     }
 }
-

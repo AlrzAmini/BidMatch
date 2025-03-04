@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BidMatch.Infrastructure.Configurations
+namespace BidMatch.Infrastructure.Persistence.Configurations
 {
     internal sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace BidMatch.Infrastructure.Configurations;
+namespace BidMatch.Infrastructure.Persistence.Configurations;
 
 internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
@@ -16,6 +16,10 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.Property(r => r.Name)
             .IsRequired()
             .HasMaxLength(256);
+
+        builder
+            .HasIndex(u => u.Name)
+            .IsUnique();
 
         builder.HasMany(rp => rp.UserRoles)
             .WithOne(r => r.Role)
